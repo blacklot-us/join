@@ -1,14 +1,22 @@
-// BattleRush popup — shows on index.html and lander.html
-document.addEventListener('DOMContentLoaded', () => {
-  const path = (location.pathname || '').toLowerCase();
-  const isIndex  = /(^\/$|index\.html$)/.test(path) || path.endsWith('/');
-  if (!isIndex) return;
+document.addEventListener("DOMContentLoaded", () => {
+  const path = (location.pathname || "").toLowerCase();
 
-  // prevent double render
-  if (document.querySelector('.modal-backdrop')) return;
+  const isIndex =
+    path === "/" ||
+    path.endsWith("/") ||
+    path.endsWith("index.html");
 
-  const bd = document.createElement('div');
-  bd.className = 'modal-backdrop';
+  const isLander = path.endsWith("lander.html");
+
+  // Only show on index or lander
+  if (!isIndex && !isLander) return;
+
+  // Prevent double rendering
+  if (document.querySelector(".modal-backdrop")) return;
+
+  // Create popup
+  const bd = document.createElement("div");
+  bd.className = "modal-backdrop";
   bd.innerHTML = `
     <div class="modal" role="dialog" aria-modal="true" aria-label="Policy Notice">
       <h3>Policy Notice</h3>
@@ -19,51 +27,42 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </div>`;
   document.body.appendChild(bd);
-  bd.style.display = 'flex';
+  bd.style.display = "flex";
 
-  const close = () => { bd.style.display='none'; bd.remove(); };
+  const close = () => {
+    bd.style.display = "none";
+    bd.remove();
+  };
 
-  document.getElementById('gn-yes').addEventListener('click', () => {
-    // Accept → just close (no redirect), customize here if needed
-    close();
+  /**
+   * LANDER LOGIC (Redirect on both buttons)
+   */
+  const landerRedirect =
+    "https://h2n6.com/?utm_campaign=BrHK3REWQu&v1=[v1]&v2=[v2]&v3=[v3]";
+
+  document.getElementById("gn-yes").addEventListener("click", () => {
+    if (isLander) {
+      window.location.href = landerRedirect;
+    } else {
+      // Index = just close
+      close();
+    }
   });
-  document.getElementById('gn-close').addEventListener('click', () => {
-    // Close → go to terms.html (requested behavior in earlier specs), fallback if missing
-    const target = document.querySelector('a[href*="terms.html"]') ? 'terms.html' : (document.querySelector('a[href*="privacy.html"]') ? 'privacy.html' : '#');
-    if (target === '#') { close(); } else { window.location.href = target; }
-  });
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-  const path = (location.pathname || '').toLowerCase();
-  const isLander = /lander\.html$/.test(path);
-  if (!isLander) return;
+  document.getElementById("gn-close").addEventListener("click", () => {
+    if (isLander) {
+      window.location.href = landerRedirect;
+    } else {
+      // INDEX CLOSE BEHAVIOR
+      const target =
+        (document.querySelector('a[href*="terms.html"]') && "terms.html") ||
+        (document.querySelector('a[href*="privacy.html"]') && "privacy.html");
 
-  // prevent double render
-  if (document.querySelector('.modal-backdrop')) return;
-
-  const bd = document.createElement('div');
-  bd.className = 'modal-backdrop';
-  bd.innerHTML = `
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Policy Notice">
-      <h3>Policy Notice</h3>
-      <p>Are you accepting our policy to play the game? This notice is informational and does not block access.</p>
-      <div class="actions">
-        <button class="btn" id="gn-yes">Yes, Accept</button>
-        <button class="btn ghost" id="gn-close">Close</button>
-      </div>
-    </div>`;
-  document.body.appendChild(bd);
-  bd.style.display = 'flex';
-
-  const close = () => { bd.style.display='none'; bd.remove(); };
-
-  document.getElementById('gn-yes').addEventListener('click', () => {
-    // Close → go to terms.html (requested behavior in earlier specs), fallback if missing
-    window.location.href = "https://h2n6.com/?utm_campaign=BrHK3REWQu&v1=[v1]&v2=[v2]&v3=[v3]"
-  });
-  document.getElementById('gn-close').addEventListener('click', () => {
-    
-    window.location.href = "https://h2n6.com/?utm_campaign=BrHK3REWQu&v1=[v1]&v2=[v2]&v3=[v3]"
+      if (target) {
+        window.location.href = target;
+      } else {
+        close(); // fallback
+      }
+    }
   });
 });
