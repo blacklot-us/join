@@ -46,35 +46,36 @@
 </head>
 <body>
 
-<!-- Unified site header -->
-<header class="header">
-  <div class="wrap nav">
-    <a class="brand" href="index.html" aria-label="BattleRush Home">
-      <img src="assets/img/battlerush-logo.svg" alt="BattleRush logo"><span>BattleRush</span>
-    </a>
-    <nav class="menu" data-nav-menu>
-      <a href="index.html">Home</a>
-      <a href="game.html">Play Game</a>
-      <a href="leaderboard.html">Leaderboard</a>
-      <a href="about.html">About</a>
-      <a href="blog.html">Blog</a>
-      <a href="faq.html">FAQ</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <button class="burger" data-nav-toggle aria-label="Toggle Menu">☰</button>
-  </div>
-</header>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: url("https://raw.githubusercontent.com/neo-aussie/img/refs/heads/main/blacklotus%20lap.png") no-repeat center center;
+    background-size: cover;
+  }
+ 
+  /* Mobile (max 600px) */
+  @media (max-width: 600px) {
+    body {
+      background-image: url("https://raw.githubusercontent.com/neo-aussie/img/refs/heads/main/blacklotus%20mob.png");
+    }
+  }
+ 
+  /* Tablet (601px – 1024px) */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    body {
+      background-image: url("https://raw.githubusercontent.com/neo-aussie/img/refs/heads/main/blacklotus%20mob.png");
+    }
+  }
+ 
+  /* Desktop (above 1024px) */
+  @media (min-width: 1025px) {
+    body {
+      background-image: url("https://raw.githubusercontent.com/neo-aussie/img/refs/heads/main/blacklotus%20lap.png");
+    }
+  }
+</style>
 
-<!-- Page content -->
-<header class="hero">
-  <div class="wrap">
-    <h1>Welcome (18+ route)</h1>
-    <p>This is the 18+ landing route. Continue back to the main site whenever you're ready.</p>
-    <a class="btn" href="index.html">Back to site</a>
-  </div>
-</header>
 
 <footer class="footer">
   <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
